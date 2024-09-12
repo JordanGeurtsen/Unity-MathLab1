@@ -6,7 +6,7 @@ public class DetectHook : MonoBehaviour
 {
     private bool hookHit = false;
     private GameObject concrete;
-    private Vector3 hookPoint;
+    private float hookOffset = 2.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class DetectHook : MonoBehaviour
     {
         if(hookHit)
         {;
-            concrete.transform.position = this.transform.position;
+            concrete.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - this.hookOffset, this.transform.position.z);
             concrete.transform.rotation = this.transform.rotation;
         }
     }
