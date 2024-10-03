@@ -5,21 +5,22 @@ using UnityEngine;
 public class DetectHook : MonoBehaviour
 {
     private bool hookHit = false;
-    private GameObject concrete;
-    private float hookOffset = 2.2f;
+    private SphereCollider concrete;
+    private Vector3 hookPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
+        this.hookPoint = this.transform.position + GetComponent<BoxCollider>().center;
+
         if(hookHit)
-        {;
-            concrete.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - this.hookOffset, this.transform.position.z);
+        {
+            concrete.transform.position = hookPoint;
             concrete.transform.rotation = this.transform.rotation;
         }
     }
@@ -27,6 +28,6 @@ public class DetectHook : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         this.hookHit = true;
-        this.concrete = other.gameObject;
+        this.concrete = other.gameObject.GetComponent<SphereCollider>();
     }
 }
