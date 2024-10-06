@@ -5,20 +5,20 @@ using UnityEngine;
 public class SoftParent : MonoBehaviour
 {
     public Transform parent;
-    protected Vector3 relativePosition;
-    protected Quaternion relativeRotation;
+    public Vector3 RelativePosition { get; set; }
+    private Quaternion relativeRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        relativePosition = parent.InverseTransformPoint(transform.position);
+        RelativePosition = parent.InverseTransformPoint(transform.position);
         relativeRotation = Quaternion.Inverse(parent.rotation) * transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = parent.TransformPoint(relativePosition);
+        transform.position = parent.TransformPoint(RelativePosition);
         transform.rotation = parent.rotation * relativeRotation;
     }
 }

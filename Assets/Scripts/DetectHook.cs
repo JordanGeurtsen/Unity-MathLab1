@@ -4,30 +4,32 @@ using UnityEngine;
 
 public class DetectHook : MonoBehaviour
 {
-    private bool hookHit = false;
+    public bool HookHit { get; set; }
     private SphereCollider concrete;
+    private BoxCollider hook;
     private Vector3 hookPoint;
 
     // Start is called before the first frame update
     void Start()
     {
+        hook = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.hookPoint = this.transform.position + GetComponent<BoxCollider>().center;
+        hookPoint = transform.position + hook.center;
 
-        if(hookHit)
+        if(HookHit)
         {
             concrete.transform.position = hookPoint;
-            concrete.transform.rotation = this.transform.rotation;
+            concrete.transform.rotation = transform.rotation;
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        this.hookHit = true;
-        this.concrete = other.gameObject.GetComponent<SphereCollider>();
+        HookHit = true;
+        concrete = other.gameObject.GetComponent<SphereCollider>();
     }
 }
